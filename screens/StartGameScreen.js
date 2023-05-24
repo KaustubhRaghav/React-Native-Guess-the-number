@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { StyleSheet, TextInput, View, Alert } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 
-const StartGameScreen = () => {
+const StartGameScreen = ({ setInputNum }) => {
   const [myNum, setMyNum] = useState("");
   const textInputEle = useRef(null);
 
@@ -28,6 +28,7 @@ const StartGameScreen = () => {
       enteredNum >= 1 &&
       enteredNum <= 99
     ) {
+      setInputNum(enteredNum);
     } else {
       textInputEle.current.blur();
       Alert.alert("Invalid number!!", "Enter a number between 1 and 99.", [
