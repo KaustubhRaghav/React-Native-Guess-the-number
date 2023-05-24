@@ -3,15 +3,21 @@ import { StyleSheet, ImageBackground, SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
+import GameOverScreen from "./screens/GameOverScreen";
 import Colors from "./constants/colors";
 
 export default function App() {
   const [inputNum, setInputNum] = useState(null);
+  const [gameIsOver, setGameIsOver] = useState(false);
 
   let currScreen = <StartGameScreen setInputNum={setInputNum} />;
 
-  if (inputNum) {
-    currScreen = <GameScreen inputNum={inputNum} />;
+  if (inputNum && !gameIsOver) {
+    currScreen = (
+      <GameScreen inputNum={inputNum} setGameIsOver={setGameIsOver} />
+    );
+  } else if (inputNum && gameIsOver) {
+    currScreen = <GameOverScreen />;
   }
 
   return (
