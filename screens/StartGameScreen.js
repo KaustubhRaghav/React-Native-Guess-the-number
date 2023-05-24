@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { StyleSheet, TextInput, View, Alert } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
+import Colors from "../constants/colors";
 
 const StartGameScreen = ({ setInputNum }) => {
   const [myNum, setMyNum] = useState("");
@@ -47,7 +48,7 @@ const StartGameScreen = ({ setInputNum }) => {
         style={styles.numberInput}
         keyboardType="number-pad"
         maxLength={2}
-        selectionColor="#fafad2"
+        selectionColor={Colors.accent300}
         value={myNum}
         onChangeText={handleTextInput}
         ref={textInputEle}
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginTop: 100,
     marginHorizontal: 24,
-    backgroundColor: "#3b021f",
+    backgroundColor: Colors.primary800,
     borderRadius: 8,
     elevation: 4,
     shadowColor: "black",
@@ -85,9 +86,9 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     fontSize: 32,
     fontWeight: "bold",
-    borderBottomColor: "#ddb52f",
+    borderBottomColor: Colors.accent500,
     borderBottomWidth: 2,
-    color: "#ddb52f",
+    color: Colors.accent500,
     textAlign: "center",
   },
   buttonsContainer: {
