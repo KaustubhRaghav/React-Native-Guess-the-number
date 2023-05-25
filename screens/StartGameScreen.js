@@ -61,10 +61,10 @@ const StartGameScreen = ({ setInputNum }) => {
         />
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
-            <PrimaryButton btnText="Reset" onPressFxn={handleResetBtn} />
+            <PrimaryButton onPressFxn={handleResetBtn}>Reset</PrimaryButton>
           </View>
           <View style={styles.buttonContainer}>
-            <PrimaryButton btnText="Confirm" onPressFxn={handleConfirmBtn} />
+            <PrimaryButton onPressFxn={handleConfirmBtn}>Confirm</PrimaryButton>
           </View>
         </View>
       </Card>
