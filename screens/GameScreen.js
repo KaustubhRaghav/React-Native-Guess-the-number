@@ -12,7 +12,7 @@ import InstructionText from "../components/ui/InstructionText";
 let minBoundary = 1;
 let maxBoundary = 100;
 
-const GameScreen = ({ inputNum, setGameIsOver }) => {
+const GameScreen = ({ inputNum, setGameIsOver, setNumOfGuesses }) => {
   const initialGuess = useMemo(
     () => generateRandomNum(minBoundary, maxBoundary, inputNum),
     [inputNum]
@@ -21,6 +21,8 @@ const GameScreen = ({ inputNum, setGameIsOver }) => {
 
   useEffect(() => {
     if (currGuess === inputNum) {
+      minBoundary = 1;
+      maxBoundary = 100;
       setGameIsOver(true);
     }
   }, [currGuess, inputNum, setGameIsOver]);
@@ -43,6 +45,7 @@ const GameScreen = ({ inputNum, setGameIsOver }) => {
         minBoundary = currGuess + 1;
       }
       let nextGuess = generateRandomNum(minBoundary, maxBoundary, currGuess);
+      setNumOfGuesses((prevCount) => prevCount + 1);
       setCurrGuess(nextGuess);
     }
   };
