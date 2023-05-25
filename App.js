@@ -1,14 +1,34 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { StyleSheet, ImageBackground, SafeAreaView } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+
 import StartGameScreen from "./screens/StartGameScreen";
 import GameScreen from "./screens/GameScreen";
 import GameOverScreen from "./screens/GameOverScreen";
 import Colors from "./constants/colors";
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
   const [inputNum, setInputNum] = useState(null);
   const [gameIsOver, setGameIsOver] = useState(false);
+
+  const [fontsLoaded] = useFonts({
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   let currScreen = <StartGameScreen setInputNum={setInputNum} />;
 
@@ -24,6 +44,7 @@ export default function App() {
     <LinearGradient
       style={styles.rootScreen}
       colors={[Colors.primary700, Colors.accent500]}
+      onLayout={onLayoutRootView}
     >
       <ImageBackground
         source={require("./assets/images/bg_img.png")}
