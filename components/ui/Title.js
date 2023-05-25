@@ -2,13 +2,13 @@ import { Text } from "react-native";
 
 const Title = ({
   titleTxt,
-  fontSize,
-  fontWeight,
-  color,
-  textAlign,
-  borderWidth,
-  borderColor,
-  padding,
+  fontSize = 26,
+  fontWeight = "bold",
+  color = "white",
+  textAlign = "center",
+  borderWidth = 2,
+  borderColor = "white",
+  padding = 12,
 }) => {
   return (
     <Text

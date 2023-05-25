@@ -1,9 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import Title from "../components/ui/Title";
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
+import Card from "../components/ui/Card";
 import { generateRandomNum } from "../utils/generateRandomNum";
+import InstructionText from "../components/ui/InstructionText";
 
 let minBoundary = 1;
 let maxBoundary = 100;
@@ -45,31 +47,29 @@ const GameScreen = ({ inputNum, setGameIsOver }) => {
 
   return (
     <View style={styles.container}>
-      <Title
-        titleTxt="Opponent's Guess"
-        fontSize={26}
-        fontWeight="bold"
-        color="white"
-        textAlign="center"
-        borderWidth={2}
-        borderColor="white"
-        padding={12}
-      />
+      <Title titleTxt="Opponent's Guess" />
       <NumberContainer guessNum={currGuess} />
-      <View>
-        <Text>Higher or lower?</Text>
-        <View style={styles.btnContainer}>
-          <PrimaryButton
-            btnText="+"
-            onPressFxn={() => nextGuessHandler("higher")}
-          />
-          <PrimaryButton
-            btnText="-"
-            onPressFxn={() => nextGuessHandler("lower")}
-          />
+      <Card>
+        <InstructionText
+          text="Higher or lower?"
+          customStyle={styles.instructionText}
+        />
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              btnText="+"
+              onPressFxn={() => nextGuessHandler("higher")}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              btnText="-"
+              onPressFxn={() => nextGuessHandler("lower")}
+            />
+          </View>
         </View>
-        <View>{/* LOG ROUNDS */}</View>
-      </View>
+      </Card>
+      <View>{/* LOG ROUNDS */}</View>
     </View>
   );
 };
@@ -77,10 +77,17 @@ const GameScreen = ({ inputNum, setGameIsOver }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
+    marginTop: 100,
+    alignItems: "center",
   },
-  btnContainer: {
+  instructionText: {
+    marginBottom: 12,
+  },
+  buttonsContainer: {
     flexDirection: "row",
+  },
+  buttonContainer: {
+    flex: 1,
   },
 });
 
