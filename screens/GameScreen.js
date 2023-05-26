@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, Text, FlatList } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import Title from "../components/ui/Title";
@@ -8,6 +8,7 @@ import PrimaryButton from "../components/ui/PrimaryButton";
 import Card from "../components/ui/Card";
 import { generateRandomNum } from "../utils/generateRandomNum";
 import InstructionText from "../components/ui/InstructionText";
+import GuessLogItem from "../components/game/GuessLogItem";
 
 let minBoundary = 1;
 let maxBoundary = 100;
@@ -18,6 +19,7 @@ const GameScreen = ({ inputNum, setGameIsOver, setNumOfGuesses }) => {
     [inputNum]
   );
   const [currGuess, setCurrGuess] = useState(initialGuess);
+  const [guessLogs, setGuessLogs] = useState([initialGuess]);
 
   useEffect(() => {
     if (currGuess === inputNum) {
@@ -46,6 +48,7 @@ const GameScreen = ({ inputNum, setGameIsOver, setNumOfGuesses }) => {
       }
       let nextGuess = generateRandomNum(minBoundary, maxBoundary, currGuess);
       setNumOfGuesses((prevCount) => prevCount + 1);
+      setGuessLogs((prevState) => [nextGuess, ...prevState]);
       setCurrGuess(nextGuess);
     }
   };
@@ -72,7 +75,15 @@ const GameScreen = ({ inputNum, setGameIsOver, setNumOfGuesses }) => {
           </View>
         </View>
       </Card>
-      <View>{/* LOG ROUNDS */}</View>
+      <View style={styles.listContainer}>
+        <FlatList
+          data={guessLogs}
+          renderItem={({ item, index }) => (
+            <GuessLogItem guess={item} roundNum={guessLogs.length - index} />
+          )}
+          keyExtractor={(item) => item}
+        />
+      </View>
     </View>
   );
 };
@@ -91,6 +102,11 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
+  },
+  listContainer: {
+    marginHorizontal: 24,
+    flex: 1,
+    marginBottom: 24,
   },
 });
 
